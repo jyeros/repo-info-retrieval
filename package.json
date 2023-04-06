@@ -8,7 +8,7 @@
     "start": "node .",
     "dev": "npm run build && npm run start",
     "lint:prettier": "prettier --check",
-		"lint:prettier:ci": "npm run lint:prettier --  \"**/*.{ts,js}\""
+    "lint:prettier:ci": "npm run lint:prettier --  \"**/*.{ts,js}\""
   },
   "author": "",
   "license": "ISC",
@@ -17,10 +17,13 @@
     "npm": "9.6.3"
   },
   "dependencies": {
+    "node-fetch": "^2.6.7",
+    "node-html-parser": "^6.1.5",
     "octokit": "^2.0.14"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "@types/node-fetch": "^2.6.3",
     "prettier": "^2.8.7",
     "typescript": "^5.0.3"
   }
