@@ -2,9 +2,10 @@ import fetch from 'node-fetch';
 import { parse } from 'node-html-parser';
 import { Octokit } from 'octokit';
 
+import { config } from './config';
 import { type RepoInfo } from './repoInfo';
 
-const githubClient = new Octokit();
+const githubClient = new Octokit({ auth: config.githubToken });
 
 const getGithubCommitters = async (owner: string, repo: string) => {
 	const committers = new Set<string>();

@@ -17,6 +17,7 @@
     "npm": "9.6.3"
   },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "node-fetch": "^2.6.7",
     "node-html-parser": "^6.1.5",
     "octokit": "^2.0.14"
