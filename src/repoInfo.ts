@@ -8,6 +8,12 @@ interface RepoInfo {
 	forks: number;
 	watchers: number;
 	stars: number;
+	totalIssues: number;
+	openIssues: number;
+	totalPulls: number;
+	openPulls: number;
+	branches: number;
+	releases: number;
 }
 
 export { RepoInfo };
