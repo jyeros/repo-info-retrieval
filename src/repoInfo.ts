@@ -5,6 +5,9 @@ interface RepoInfo {
 	committers: number;
 	numberCommits: number;
 	dependencies: string[];
+	forks: number;
+	watchers: number;
+	stars: number;
 }
 
 export { RepoInfo };

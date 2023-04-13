@@ -64,6 +64,9 @@ const getGithubRepo = async (owner: string, repo: string): Promise<RepoInfo> => 
 		committers: committers.size,
 		numberCommits: numberOfCommits,
 		dependencies: [...dependencies],
+		forks: repoInfo.data.forks_count,
+		stars: repoInfo.data.stargazers_count,
+		watchers: repoInfo.data.subscribers_count,
 	};
 };
 
