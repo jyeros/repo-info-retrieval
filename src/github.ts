@@ -7,8 +7,9 @@ import { type RepoInfo } from './repoInfo';
 
 const githubClient = new Octokit({ auth: config.githubToken });
 
-const getGithubCommitters = async (owner: string, repo: string) => {
+const getGithubCommitInfo = async (owner: string, repo: string) => {
 	const committers = new Set<string>();
+	let numberOfCommits = 0;
 
 	let response: Awaited<ReturnType<typeof githubClient.rest.repos.listCommits>>;
 	let page = 1;
@@ -16,12 +17,13 @@ const getGithubCommitters = async (owner: string, repo: string) => {
 		// max page size is 100
 		response = await githubClient.rest.repos.listCommits({ repo, owner, per_page: 100, page });
 		response.data.forEach((commit) => {
+			numberOfCommits++;
 			if (commit?.author?.login) committers.add(commit.author.login);
 		});
 		page++;
 	} while (response.data.length > 0);
 
-	return committers;
+	return { committers, numberOfCommits };
 };
 
 const getGithubDependencies = async (owner: string, repo: string) => {
@@ -52,7 +54,7 @@ const getGithubRepo = async (owner: string, repo: string): Promise<RepoInfo> => 
 	console.log(`Getting repo info for, ${owner}/${repo}`);
 
 	const repoInfo = await githubClient.rest.repos.get({ repo, owner });
-	const committers = await getGithubCommitters(owner, repo);
+	const { committers, numberOfCommits } = await getGithubCommitInfo(owner, repo);
 	const dependencies = await getGithubDependencies(owner, repo);
 
 	return {
@@ -60,6 +62,7 @@ const getGithubRepo = async (owner: string, repo: string): Promise<RepoInfo> => 
 		createdAt: repoInfo.data.created_at,
 		description: repoInfo.data.description,
 		committers: committers.size,
+		numberCommits: numberOfCommits,
 		dependencies: [...dependencies],
 	};
 };

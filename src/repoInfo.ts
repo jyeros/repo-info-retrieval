@@ -3,6 +3,7 @@ interface RepoInfo {
 	createdAt: string;
 	description: string | null | undefined;
 	committers: number;
+	numberCommits: number;
 	dependencies: string[];
 }
 
