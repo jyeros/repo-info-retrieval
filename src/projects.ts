@@ -25,4 +25,4 @@ const getProjects = async (path: string): Promise<Project[]> => {
 	});
 };
 
-export { Project, getProjects };
+export { BaseProject, Project, getProjects };
