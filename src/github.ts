@@ -54,6 +54,11 @@ const getGithubIssues = async (owner: string, repo: string) => {
 	const response = await fetch(`https://github.com/${owner}/${repo}/issues`, {
 		method: 'GET',
 	});
+	if (response.redirected)
+		return {
+			totalIssues: 0,
+			openIssues: 0,
+		};
 	const body = await response.text();
 	const html = parse(body);
 	const openIssuesElement = html.querySelector('a.btn-link[data-ga-click="Issues, Table state, Open"]')!;
@@ -97,7 +102,7 @@ const getGithubBranchesAndReleases = async (owner: string, repo: string) => {
 
 	return {
 		branches: Number.parseInt(branchesElement.innerText.trim().split(' ')[0].replace(',', '')),
-		releases: Number.parseInt(releasesElement.innerText.trim().split(' ').slice(-1)[0].replace(',', ''))
+		releases: Number.parseInt(releasesElement.innerText.trim().split(' ').slice(-1)[0].replace(',', '')),
 	};
 };
 
